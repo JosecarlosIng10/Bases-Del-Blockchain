@@ -1,0 +1,30 @@
+c:\users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\bin\Debug\Practica1EDD.exe.config
+c:\users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\bin\Debug\Practica1EDD.exe
+c:\users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\bin\Debug\Practica1EDD.pdb
+c:\users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\obj\Debug\Practica1EDD.csprojResolveAssemblyReference.cache
+c:\users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\obj\Debug\Practica1EDD.Form1.resources
+c:\users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\obj\Debug\Practica1EDD.Properties.Resources.resources
+c:\users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\obj\Debug\Practica1EDD.csproj.GenerateResource.Cache
+c:\users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\obj\Debug\Practica1EDD.exe
+c:\users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\obj\Debug\Practica1EDD.pdb
+c:\users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\bin\Debug\Newtonsoft.Json.dll
+c:\users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\bin\Debug\Newtonsoft.Json.xml
+C:\Users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\obj\Debug\Practica1EDD.Dashboard.resources
+C:\Users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\obj\Debug\Practica1EDD.EnviarMensaje.resources
+C:\Users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\obj\Debug\Practica1EDD.Mensajes.resources
+C:\Users\equipo\documents\visual studio 2015\Projects\Practica1EDD\Practica1EDD\obj\Debug\Practica1EDD.ColaMensaje.resources
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\bin\Debug\Practica1EDD.exe.config
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.exe
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.pdb
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\bin\Debug\Practica1EDD.exe
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\bin\Debug\Practica1EDD.pdb
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\bin\Debug\Newtonsoft.Json.dll
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\bin\Debug\Newtonsoft.Json.xml
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.csprojResolveAssemblyReference.cache
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.ColaMensaje.resources
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.Dashboard.resources
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.EnviarMensaje.resources
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.Form1.resources
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.Mensajes.resources
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.Properties.Resources.resources
+C:\Users\equipo\Desktop\Usac\Estructuras\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.csproj.GenerateResource.Cache
