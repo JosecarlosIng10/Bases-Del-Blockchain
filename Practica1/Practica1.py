@@ -57,7 +57,7 @@ class Lista:
 				break
 			else:
 				aux= aux.siguiente
-			 	
+				
 
 	
 	def eliminar(self, ipeliminar):
@@ -109,40 +109,124 @@ class Cola:
 	def NextInCola(self):
 		n = self.size-1
 		return self.cola[n] +"/"+str(n)		
+class NodoOperacion:
+  def __init__(self,oper,sig):
+	self.oper = oper
+	
+	self.sig=sig
+class Pila:
+	def __init__(self):
 
+		self.items=[]
+		self.top=0
+		
+	def esPilaVacia(self):
+		return self.items == []
+	def apilar(self,dato):
+		self.items.append(dato)
+		self.top+=1
+	def desapilar(self):
+		
+			self.top-=1
+			return self.items.pop()
+			
+	def PilaSize(self):
+		print str(self.top)
+		return self.top		
+		 
+			
+							
+
+class ConsolaDeEjecucion: 
+	
+	 def calculadora_polaca(self,elementos):
+
+		p=Pila()
+		for elemento in elementos:
+
+			 
+			 try:
+				numero = float(elemento)
+				p.apilar(numero)
+				print "Push ", numero
+			 except ValueError:
+					if elemento not in "+-*/ %" or len(elemento) != 1:
+						raise ValueError("Operando invalido "+ elemento)
+					try:
+						 
+						 a1 = p.desapilar()
+						 print "Pop ",a1
+						 a2 = p.desapilar()
+						 print "Pop ",a2
+					except ValueError:     
+						 print "Error pila faltan operandos"
+						 raise ValueError("Faltan operandos")
+					resultado=0     
+					if elemento=="+": 
+ 
+				
+						 resultado = a2 + a1
+						 print str(a2) +"+"+ str(a1)+"="+str(resultado)
+					elif elemento == "-":     
+					  
+				
+						 resultado = a2 - a1
+						 print str(a2) +"-"+ str(a1)+"="+str(resultado)
+					elif elemento == "*":     
+				
+						 resultado = a2 * a1
+						 print str(a2) +"*"+ str(a1)+"="+str(resultado)
+					elif elemento == "/":     
+				
+						 resultado = a2 / a1
+						 print str(a2) +"/"+ str(a1)+"="+str(resultado)
+					elif elemento == "%":     
+			   
+						 resultado = a2 % a1
+						 print str(a2) +"%"+ str(a1)+"="+str(resultado)
+					#print "Push ", resultado  
+					p.apilar(resultado)
+					print "Push", resultado 
+		
+		if p.PilaSize()==1:
+			res=p.desapilar()
+			print "El resultado es ", res
 						
-
-
+			 
+	 
+					
+			   
 from flask import Flask, request, render_template
 from werkzeug.datastructures import OrderedMultiDict, ImmutableOrderedMultiDict
 
 app = Flask("Web Service")
 lista = Lista()
 cola = Cola()
+resolver = ConsolaDeEjecucion()
 
 @app.route('/mensaje',methods=['POST']) 
 def h4():
-	f= request.get_data()
-	datos= f.replace("[","")
-	datos=datos.replace("]","")
-	datos= datos.split(",")
-	cola.push(datos[1],datos[0])
-	cola.printcola()
+	ip= request.environ['REMOTE_ADDR']
+	oper = request.form['inorden']
+
+	
+	cola.push(oper,ip)
+	resolver.calculadora_polaca(oper)
 	return "True"
 
 @app.route('/guardarip',methods=['POST']) 
 def h():
-	f = request.get_data()
-	datos= f.replace("[","")
-	datos=datos.replace("]","")
-	datos= datos.split(",")
+	carnet= request.form['carnet']
+	ip= request.form['ip']
+	estado = request.form['estado']
+	
 	nodo = Nodo()
-	nodo.ip= datos[0]
-	nodo.carnet= datos[1]
-	nodo.estado= datos[2]
+	nodo.ip= ip
+	nodo.carnet= carnet
+	nodo.estado= estado
+
 	lista.insertar(nodo)
 	lista.consultar()
-	
 
 	return "True" 
 
