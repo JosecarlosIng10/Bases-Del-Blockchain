@@ -92,8 +92,8 @@ class Cola:
 		self.size = 0
 	def isempty(self):
 		return len(self.cola) == 0
-	def push(self, operacion, ip):
-		self.cola += [operacion+"/"+ip]
+	def push(self, operacion, ip,postorden):
+		self.cola += [operacion+"$"+ip+"$"+postorden]
 		self.size += 1
 	def pop(self):
 		if self.isempty():
@@ -108,12 +108,8 @@ class Cola:
 			n-=1
 	def NextInCola(self):
 		n = self.size-1
-		return self.cola[n] +"/"+str(n)		
-class NodoOperacion:
-  def __init__(self,oper,sig):
-	self.oper = oper
-	
-	self.sig=sig
+		return self.cola[n] +"$"+str(n)		
+
 class Pila:
 	def __init__(self):
 
@@ -132,7 +128,103 @@ class Pila:
 			
 	def PilaSize(self):
 		print str(self.top)
-		return self.top		
+		return self.top
+
+class Conversion:
+	def __init__(self):
+
+		
+		
+		
+		
+		self.pila=[]
+		self.EP=[]
+		self.tope=0
+
+	
+
+	
+
+	def push(self,dato):
+		self.tope+=1
+		self.pila.append(dato)
+		
+
+	def pop(self):
+		self.tope-=1
+		return self.pila.pop()
+
+	def infijo(self,dato):
+		if(dato=='^'):
+			prioridadop=3
+			return prioridadop
+		elif(dato=='*'):
+			prioridadop=2
+			return prioridadop
+		elif(dato=='/'):
+			prioridadop=2
+			return prioridadop
+		elif(dato=='+'):
+			prioridadop=1
+			return prioridadop
+		elif(dato=='-'):
+			prioridadop=1
+			return prioridadop
+		else:
+			return 0
+		
+
+	def pripila(self,dato):
+		
+		if(dato=='*'):
+			prioridadop=2
+			return prioridadop
+		elif(dato=='/'):
+			prioridadop=2
+			return prioridadop
+			
+		elif(dato=='+'):
+			prioridadop=1
+			return prioridadop
+		elif(dato=='-'):
+			prioridadop=1
+			return prioridadop
+		else:
+			return 4	
+		
+	def ConversionAPostFija(self,operacion):
+		EI=list(operacion)
+
+		cadenapostorden=""
+		for i in range(len(EI)):
+			
+			if EI[i].isdigit() :
+				cadenapostorden+= str(EI[i])
+				
+			if(EI[i]=='+' or EI[i]=='-' or EI[i]=='*' or EI[i]=='/' or EI[i]=='^' or EI[i]=='('):
+									  #EI es diferente a ')'
+				if (self.pila):
+					dato = self.pop()
+					while (self.pila and self.infijo(dato) >= self.pripila(EI[i]) ):
+						cadenapostorden += str(dato) 
+						dato = self.pop()
+					self.push(dato)
+					self.push(EI[i])
+				else:
+					self.push(EI[i])
+			if (EI[i] == ')'):
+				if (self.pila):
+					dato= self.pop()
+					while (self.pila and dato != '('):
+						cadenapostorden += str(dato) 
+						dato = self.pop()
+						 
+		while self.pila:
+			cadenapostorden += str(self.pop()) 								
+		return cadenapostorden	
+			  
+				
+					
 		 
 			
 							
@@ -140,57 +232,57 @@ class Pila:
 class ConsolaDeEjecucion: 
 	
 	 def calculadora_polaca(self,elementos):
-
+	 	cadenaconsola=""
 		p=Pila()
 		for elemento in elementos:
 
 			 
 			 try:
-				numero = float(elemento)
+				numero = int(elemento)
 				p.apilar(numero)
-				print "Push ", numero
+				cadenaconsola += "_Push "+ str(numero)
 			 except ValueError:
 					if elemento not in "+-*/ %" or len(elemento) != 1:
 						raise ValueError("Operando invalido "+ elemento)
 					try:
 						 
 						 a1 = p.desapilar()
-						 print "Pop ",a1
+						 cadenaconsola += "_Pop "+str(a1)
 						 a2 = p.desapilar()
-						 print "Pop ",a2
+						 cadenaconsola += "_Pop "+str(a2)
 					except ValueError:     
-						 print "Error pila faltan operandos"
+						 cadenaconsola += "\Error pila faltan operandos"
 						 raise ValueError("Faltan operandos")
 					resultado=0     
 					if elemento=="+": 
  
 				
 						 resultado = a2 + a1
-						 print str(a2) +"+"+ str(a1)+"="+str(resultado)
+						 cadenaconsola += "_" + str(a2) +"+"+ str(a1)+"="+str(resultado)
 					elif elemento == "-":     
 					  
 				
 						 resultado = a2 - a1
-						 print str(a2) +"-"+ str(a1)+"="+str(resultado)
+						 cadenaconsola += "_"+ str(a2) +"-"+ str(a1)+"="+str(resultado)
 					elif elemento == "*":     
 				
 						 resultado = a2 * a1
-						 print str(a2) +"*"+ str(a1)+"="+str(resultado)
+						 cadenaconsola += "_"+ str(a2) +"*"+ str(a1)+"="+str(resultado)
 					elif elemento == "/":     
 				
 						 resultado = a2 / a1
-						 print str(a2) +"/"+ str(a1)+"="+str(resultado)
+						 cadenaconsola += "_"+str(a2) +"/"+ str(a1)+"="+str(resultado)
 					elif elemento == "%":     
 			   
 						 resultado = a2 % a1
-						 print str(a2) +"%"+ str(a1)+"="+str(resultado)
+						 cadenaconsola += +"_"+ str(a2) +"%"+ str(a1)+"="+str(resultado)
 					#print "Push ", resultado  
 					p.apilar(resultado)
-					print "Push", resultado 
+					cadenaconsola += "_Push "+str(resultado) 
 		
 		if p.PilaSize()==1:
 			res=p.desapilar()
-			print "El resultado es ", res
+		return cadenaconsola +"$"+ str(res)
 						
 			 
 	 
@@ -203,15 +295,15 @@ app = Flask("Web Service")
 lista = Lista()
 cola = Cola()
 resolver = ConsolaDeEjecucion()
+convertir = Conversion()
 
 @app.route('/mensaje',methods=['POST']) 
 def h4():
 	ip= request.environ['REMOTE_ADDR']
 	oper = request.form['inorden']
-
 	
-	cola.push(oper,ip)
-	resolver.calculadora_polaca(oper)
+	cola.push(oper,ip,convertir.ConversionAPostFija(oper))
+	
 	return "True"
 
 @app.route('/guardarip',methods=['POST']) 
@@ -236,12 +328,15 @@ def h1():
 @app.route('/ActualizarCola', methods= ['GET'])
 def h5():
 	datos= cola.NextInCola()
-	datos= datos.split("/")
+	datos= datos.split("$")
 	
 	carnet = lista.getCarnet(datos[1].strip())
 	
+	resultados= resolver.calculadora_polaca(datos[2])
+	
+
    
-	return cola.NextInCola()+"/"+str(carnet)
+	return cola.NextInCola()+"$"+str(carnet)+"$"+resultados
 
 @app.route('/dashboard', methods= ['POST'])
 def h2():
