@@ -43,3 +43,4 @@ C:\Users\equipo\Documents\GitHub\Practica1_2s2017_201212644\Practica1\Interfaz G
 C:\Users\equipo\Documents\GitHub\Practica1_2s2017_201212644\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.Mensajes.resources
 C:\Users\equipo\Documents\GitHub\Practica1_2s2017_201212644\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.Properties.Resources.resources
 C:\Users\equipo\Documents\GitHub\Practica1_2s2017_201212644\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.csproj.GenerateResource.Cache
+C:\Users\equipo\Documents\GitHub\Practica1_2s2017_201212644\Practica1\Interfaz Grafica\Practica1EDD\obj\Debug\Practica1EDD.RespuestaMensaje.resources

@@ -30,5 +30,13 @@ namespace Practica1EDD
             nuevo.StartPosition = FormStartPosition.CenterScreen;
             nuevo.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RespuestaMensaje nuevo = new RespuestaMensaje();
+            nuevo.StartPosition = FormStartPosition.CenterScreen;
+            nuevo.Show();
+
+        }
     }
 }

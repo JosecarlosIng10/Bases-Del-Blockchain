@@ -89,7 +89,7 @@ class Cola:
 
 	def __init__(self):
 		self.cola = []
-		self.size = 0
+		self.size = -1
 	def isempty(self):
 		return len(self.cola) == 0
 	def push(self, operacion, ip,postorden):
@@ -99,7 +99,7 @@ class Cola:
 		if self.isempty():
 			print("La cola esta vacia")
 		else:
-			self.cola = [self.cola[i] for i in range(1,self.size())]
+			self.cola = [self.cola[i] for i in range(0,self.size)]
 			self.size -=1
 	def printcola(self):
 		n = self.size-1
@@ -107,7 +107,8 @@ class Cola:
 			print(self.cola[n])
 			n-=1
 	def NextInCola(self):
-		n = self.size-1
+		print str(self.size)
+		n = self.size
 		return self.cola[n] +"$"+str(n)		
 
 class Pila:
@@ -127,8 +128,51 @@ class Pila:
 			return self.items.pop()
 			
 	def PilaSize(self):
-		print str(self.top)
+		
 		return self.top
+
+class NodoEnlazado:
+	def __init__(self,ip,carnet,inorden,postorden,resultado):
+		self.siguiente=None
+		self.anterior=None
+		self.ip=ip
+		self.carnet=carnet
+		self.inorden=inorden
+		self.postorden=postorden
+		self.resultado= resultado
+	
+class ListaDoblementeEnlazada:
+	def __init__(self):
+		self.cabeza= None
+		self.cola=None
+	def isemptry(self):
+		if self.cabeza==None:
+			return True
+		else:
+			return False	
+	def InsertarPrimero(self, nodo):
+		temporal= nodo
+		if self.isemptry()==True:
+			self.cabeza= temporal
+			self.cola=temporal
+		else:
+			temporal.siguiente= self.cabeza
+			self.cabeza.anterior=temporal
+			self.cabeza=temporal
+	def PrintFromCabeza(self):
+		temporal=self.cabeza
+		cadena=""
+		while temporal!=None:
+			cadena += temporal.ip + "$"+temporal.carnet+"$"+temporal.inorden+"$"+ temporal.postorden+"$" +temporal.resultado+"@"
+			temporal = temporal.siguiente
+		return cadena	
+	def PrintFromCola(self):
+		temporal= self.cola
+		cadena=""
+		while temporal!= None:
+			cadena += temporal.ip + "$"+temporal.carnet+"$"+temporal.inorden+"$"+ temporal.postorden+"$" +temporal.resultado+"@"
+			temporal = temporal.anterior
+		return cadena	
 
 class Conversion:
 	def __init__(self):
@@ -155,38 +199,43 @@ class Conversion:
 		return self.pila.pop()
 
 	def infijo(self,dato):
-		if(dato=='^'):
+		dato= dato.replace("@",'')
+		
+		if(dato=="^"):
 			prioridadop=3
 			return prioridadop
-		elif(dato=='*'):
+		elif(dato=="*"):
 			prioridadop=2
 			return prioridadop
-		elif(dato=='/'):
+		elif(dato=="/"):
 			prioridadop=2
 			return prioridadop
-		elif(dato=='+'):
+		elif(dato=="+"):
 			prioridadop=1
 			return prioridadop
-		elif(dato=='-'):
+		elif(dato=="-"):
 			prioridadop=1
 			return prioridadop
 		else:
+
 			return 0
 		
 
 	def pripila(self,dato):
+
+		dato= dato.replace("@",'')
 		
-		if(dato=='*'):
+		if(dato=="*"):
 			prioridadop=2
 			return prioridadop
-		elif(dato=='/'):
+		elif(dato=="/"):
 			prioridadop=2
 			return prioridadop
 			
-		elif(dato=='+'):
+		elif(dato=="+"):
 			prioridadop=1
 			return prioridadop
-		elif(dato=='-'):
+		elif(dato=="-"):
 			prioridadop=1
 			return prioridadop
 		else:
@@ -201,26 +250,32 @@ class Conversion:
 			if EI[i].isdigit() :
 				cadenapostorden+= str(EI[i])
 				
+				
 			if(EI[i]=='+' or EI[i]=='-' or EI[i]=='*' or EI[i]=='/' or EI[i]=='^' or EI[i]=='('):
 									  #EI es diferente a ')'
 				if (self.pila):
 					dato = self.pop()
+					
 					while (self.pila and self.infijo(dato) >= self.pripila(EI[i]) ):
+
 						cadenapostorden += str(dato) 
 						dato = self.pop()
 					self.push(dato)
-					self.push(EI[i])
+					self.push("@"+EI[i])
+					cadenapostorden+="@"
 				else:
-					self.push(EI[i])
+					self.push("@"+EI[i])
+					cadenapostorden+="@"
 			if (EI[i] == ')'):
 				if (self.pila):
 					dato= self.pop()
-					while (self.pila and dato != '('):
-						cadenapostorden += str(dato) 
+					
+					while (self.pila and dato != "@("):
+						cadenapostorden +=str(dato)
 						dato = self.pop()
 						 
 		while self.pila:
-			cadenapostorden += str(self.pop()) 								
+			cadenapostorden += str(self.pop()) 							
 		return cadenapostorden	
 			  
 				
@@ -232,18 +287,25 @@ class Conversion:
 class ConsolaDeEjecucion: 
 	
 	 def calculadora_polaca(self,elementos):
-	 	cadenaconsola=""
+		cadenaconsola=""
 		p=Pila()
+		elementos = elementos.strip()
+		
+		elementos= elementos.split("@")
 		for elemento in elementos:
+			
+		  if elemento!='':
+
+		  
 
 			 
 			 try:
-				numero = int(elemento)
+				numero = float(elemento)
 				p.apilar(numero)
 				cadenaconsola += "_Push "+ str(numero)
 			 except ValueError:
 					if elemento not in "+-*/ %" or len(elemento) != 1:
-						raise ValueError("Operando invalido "+ elemento)
+						raise ValueError("Operando invalido "+ str(elemento))
 					try:
 						 
 						 a1 = p.desapilar()
@@ -279,7 +341,7 @@ class ConsolaDeEjecucion:
 					#print "Push ", resultado  
 					p.apilar(resultado)
 					cadenaconsola += "_Push "+str(resultado) 
-		
+		res=0
 		if p.PilaSize()==1:
 			res=p.desapilar()
 		return cadenaconsola +"$"+ str(res)
@@ -296,6 +358,7 @@ lista = Lista()
 cola = Cola()
 resolver = ConsolaDeEjecucion()
 convertir = Conversion()
+listaenlazada= ListaDoblementeEnlazada()
 
 @app.route('/mensaje',methods=['POST']) 
 def h4():
@@ -321,10 +384,36 @@ def h():
 	lista.consultar()
 
 	return "True" 
+@app.route('/respuesta',methods=['POST']) 
+def h7():
+	
+	ip= request.environ['REMOTE_ADDR']
+	carnet = lista.getCarnet(ip)
+	inorden= request.form['inorden']
+	postorden= request.form['postorden']
+	resultado= request.form['respuesta']
+	nodo= NodoEnlazado(ip,carnet,inorden,postorden,resultado)
+	
+	listaenlazada.InsertarPrimero(nodo)
+	cola.pop()
+	
+
+	return "True" 
 
 @app.route('/conectado', methods= ['GET'])
 def h1():
 	return "201212644"
+
+@app.route('/ListaRespuestaReciente', methods= ['GET'])
+def h9():
+	cadena= listaenlazada.PrintFromCabeza()
+	return cadena
+@app.route('/ListaRespuestaUltimo', methods= ['GET'])
+def h10():
+	cadena= listaenlazada.PrintFromCola()
+	#print cadena
+	return cadena	
+
 @app.route('/ActualizarCola', methods= ['GET'])
 def h5():
 	datos= cola.NextInCola()
