@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,6 +23,7 @@ namespace Practica1EDD
             Dashboard nuevo = new Dashboard();
             nuevo.StartPosition = FormStartPosition.CenterScreen;
             nuevo.Show();
+            this.Hide();
                 
         }
 
@@ -30,6 +32,31 @@ namespace Practica1EDD
             Mensajes nuevo = new Mensajes();
             nuevo.StartPosition = FormStartPosition.CenterScreen;
             nuevo.Show();
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                using (var client = new WebClient())
+                {
+                    var responseString = client.DownloadString("http://192.168.1.5:5000/Reporte");
+                   
+                }
+
+
+            }
+            catch
+            {
+               
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

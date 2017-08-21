@@ -30,7 +30,7 @@ namespace Practica1EDD
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             openFileDialog1.FilterIndex = 2;
             openFileDialog1.RestoreDirectory = true;
-
+            String resultado = "";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -49,7 +49,7 @@ namespace Practica1EDD
                             XmlNodeList lista = ((XmlElement)mensajes[0]).GetElementsByTagName("mensaje");
                             XmlNodeList lista1 = ((XmlElement)lista[0]).GetElementsByTagName("nodos");
                             XmlNodeList lista2 = ((XmlElement)lista1[0]).GetElementsByTagName("IP");
-
+                           
                             foreach (XmlElement nodo in lista)
 
                             {
@@ -70,7 +70,7 @@ namespace Practica1EDD
 
 
                                     XmlNodeList ip1 = nodo.GetElementsByTagName("IP");
-                                    enviarmensaje(ip1[ii].InnerText, texto[i].InnerText);
+                                    resultado=resultado+enviarmensaje(ip1[ii].InnerText, texto[i].InnerText)+"\n";
                                    
                                     ii++;
                                    
@@ -80,6 +80,7 @@ namespace Practica1EDD
                              
 
                             }
+                           
 
 
                         }
@@ -91,21 +92,21 @@ namespace Practica1EDD
 
                 }
             }
-                
-                           
-                            
-                          
+
+            MessageBox.Show(resultado);
 
 
 
-      }
 
-        public void enviarmensaje(string ip, string texto)
+
+        }
+
+        public String  enviarmensaje(string ip, string texto)
         {
             ip = ip.Replace("\r", string.Empty);
             ip = ip.Replace("\t", string.Empty);
             ip = ip.Replace("\n", string.Empty);
-            
+            String resultado = "";
             try
             {
                 string url = "http://" + ip.Trim() + ":5000/mensaje";
@@ -120,16 +121,30 @@ namespace Practica1EDD
 
                     var responseString = Encoding.Default.GetString(response);
                 }
-                }
+                resultado = ip + " - Envidado \n";
+            }
+                
             catch
             {
-                MessageBox.Show("El mensaje no llego porque la ip:" + ip + " no esta conectada");
+                resultado = ip + " - No Envidado \n";
             }
+
+            return resultado;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            enviarmensaje(textBox1.Text, textBox2.Text);
+            MessageBox.Show(enviarmensaje(textBox1.Text, textBox2.Text));
+            textBox1.Text = "";
+            textBox2.Text = "";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Mensajes nuevo = new Mensajes();
+            nuevo.StartPosition = FormStartPosition.CenterScreen;
+            nuevo.Show();
+            this.Close();
         }
     }
  }

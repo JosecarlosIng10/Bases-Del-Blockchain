@@ -90,7 +90,7 @@ namespace Practica1EDD
 
                     values["inorden"] = textBox5.Text;
                     values["postorden"] = textBox4.Text;
-                    values["respuesta"] = textBox3.Text;
+                    values["resultado"] = textBox3.Text;
 
 
                     var response = client.UploadValues(url, values);
@@ -103,6 +103,14 @@ namespace Practica1EDD
                 MessageBox.Show("El mensaje no llego porque la ip:" + textBox2.Text + " no esta conectada");
             }
             actualizar();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Mensajes nuevo = new Mensajes();
+            nuevo.StartPosition = FormStartPosition.CenterScreen;
+            nuevo.Show();
+            this.Close();
         }
     }
 }

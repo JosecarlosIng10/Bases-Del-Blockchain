@@ -122,5 +122,13 @@ namespace Practica1EDD
         {
             MasReciente();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Mensajes nuevo = new Mensajes();
+            nuevo.StartPosition = FormStartPosition.CenterScreen;
+            nuevo.Show();
+            this.Close();
+        }
     }
 }

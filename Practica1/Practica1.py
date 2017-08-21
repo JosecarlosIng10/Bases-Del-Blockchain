@@ -1,6 +1,6 @@
 __author__ = "Jose"
 __date__ = "$Ago 6, 2017 11:41:07 AM$"
-import json, requests
+import json, requests, graphviz, os
 class Nodo:
 	def __init__(self):
 		self.ip = None
@@ -50,14 +50,20 @@ class Lista:
 	def getCarnet(self, ip):
 		aux= self.raiz
 		while aux != None:
-			print ip
+			
 			if aux.ip==ip:
 					
 				return aux.carnet
 				break
 			else:
 				aux= aux.siguiente
-				
+	def getIp(self):
+		aux= self.raiz
+		cadena=""
+		while aux!= None:
+			cadena+="$"+aux.ip 
+			aux= aux.siguiente
+		return cadena		
 
 	
 	def eliminar(self, ipeliminar):
@@ -95,28 +101,97 @@ class Cola:
 	def push(self, operacion, ip,postorden):
 		self.cola += [operacion+"$"+ip+"$"+postorden]
 		self.size += 1
-	def pop(self):
+		print self.size
+	def popcola(self):
 		if self.isempty():
 			print("La cola esta vacia")
 		else:
-			self.cola = [self.cola[i] for i in range(0,self.size)]
+			i=0
+			while (i<self.size):
+				self.cola[i] = self.cola[i+1]
+				i=i+1
+			
+			self.cola.pop()
 			self.size -=1
+			
 	def printcola(self):
 		n = self.size-1
 		while n>-1:
 			print(self.cola[n])
 			n-=1
 	def NextInCola(self):
-		print str(self.size)
+		
 		n = self.size
-		return self.cola[n] +"$"+str(n)		
+		return self.cola[0] +"$"+str(n)	
+	
+	def reporte(self):
+
+		i=self.size
+		verificar= False
+		
+		grafico="digraph A {\n"
+		while (i!=0 and i!=-1):
+			verificar= True
+			a=i-1
+			cadena= self.cola[i]
+			cadena1= self.cola[a]
+
+			cadena= cadena.strip()
+			cadena1= cadena1.strip()
+
+			cadena= cadena.replace('\t', '')
+			cadena= cadena.replace('\r', '')
+			cadena= cadena.replace('\n', '')
+
+			cadena1= cadena1.replace('\t', '')
+			cadena1= cadena1.replace('\r', '')
+			cadena1= cadena1.replace('\n', '')
+
+			cadena= cadena.split("$")
+			cadena1= cadena1.split("$")
+
+			grafico+= '"'+cadena[1]+": "+cadena[0]+'"'+"->"+ '"'+cadena1[1]+": "+cadena1[0]+'"'+"\n"
+			
+		
+			
+			i=i-1
+		if i==0 and verificar==False:
+			cadena= self.cola[i]
+			cadena= cadena.strip()
+			
+
+			cadena= cadena.replace('\t', '')
+			cadena= cadena.replace('\r', '')
+			cadena= cadena.replace('\n', '')
+
+			cadena= cadena.split("$")
+
+			grafico+= '"'+cadena[1]+": "+cadena[0]+'"'
+		if i==-1:
+			
+			grafico+= '"'+"Null"+'"'			
+		grafico+="}"
+		archivo= open('grafo1.dot','w')	
+		archivo= open('grafo1.dot','a')
+		archivo.write(grafico)
+		archivo.close()
+		os.system('dot grafo1.dot -o grafo1.png -Tpng -Grankdir=LR')
+
+
+		os.startfile('grafo1.png')	
+
+		
+				
 
 class Pila:
+	
+
 	def __init__(self):
 
 		self.items=[]
 		self.top=0
-		
+	
+
 	def esPilaVacia(self):
 		return self.items == []
 	def apilar(self,dato):
@@ -359,15 +434,16 @@ cola = Cola()
 resolver = ConsolaDeEjecucion()
 convertir = Conversion()
 listaenlazada= ListaDoblementeEnlazada()
-
+pila= Pila()
 @app.route('/mensaje',methods=['POST']) 
 def h4():
+	
 	ip= request.environ['REMOTE_ADDR']
 	oper = request.form['inorden']
 	
 	cola.push(oper,ip,convertir.ConversionAPostFija(oper))
 	
-	return "True"
+	return "true"
 
 @app.route('/guardarip',methods=['POST']) 
 def h():
@@ -391,14 +467,15 @@ def h7():
 	carnet = lista.getCarnet(ip)
 	inorden= request.form['inorden']
 	postorden= request.form['postorden']
-	resultado= request.form['respuesta']
+	resultado= request.form['resultado']
 	nodo= NodoEnlazado(ip,carnet,inorden,postorden,resultado)
 	
 	listaenlazada.InsertarPrimero(nodo)
-	cola.pop()
+	cola.popcola()
+
 	
 
-	return "True" 
+	return "true" 
 
 @app.route('/conectado', methods= ['GET'])
 def h1():
@@ -411,7 +488,7 @@ def h9():
 @app.route('/ListaRespuestaUltimo', methods= ['GET'])
 def h10():
 	cadena= listaenlazada.PrintFromCola()
-	#print cadena
+	
 	return cadena	
 
 @app.route('/ActualizarCola', methods= ['GET'])
@@ -426,12 +503,17 @@ def h5():
 
    
 	return cola.NextInCola()+"$"+str(carnet)+"$"+resultados
+@app.route('/Reporte', methods= ['GET'])
+def h12():
+	cola.reporte()
+	
+	return "True"
+@app.route('/GetIp', methods= ['GET'])
+def h13():
+	print lista.getIp()
+	
+	return lista.getIp()		
 
-@app.route('/dashboard', methods= ['POST'])
-def h2():
-	f = str(request.form)
-
-	return ala.printListaPrimeroUltimo()
 
 
 @app.route('/hola') 

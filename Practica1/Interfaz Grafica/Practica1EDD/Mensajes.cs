@@ -22,6 +22,7 @@ namespace Practica1EDD
             EnviarMensaje nuevo = new EnviarMensaje();
             nuevo.StartPosition = FormStartPosition.CenterScreen;
             nuevo.Show();
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -29,6 +30,7 @@ namespace Practica1EDD
             ColaMensaje nuevo = new ColaMensaje();
             nuevo.StartPosition = FormStartPosition.CenterScreen;
             nuevo.Show();
+            this.Close();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -36,7 +38,16 @@ namespace Practica1EDD
             RespuestaMensaje nuevo = new RespuestaMensaje();
             nuevo.StartPosition = FormStartPosition.CenterScreen;
             nuevo.Show();
+            this.Close();
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form1 nuevo = new Form1();
+            nuevo.StartPosition = FormStartPosition.CenterScreen;
+            nuevo.Show();
+            this.Close();
         }
     }
 }
