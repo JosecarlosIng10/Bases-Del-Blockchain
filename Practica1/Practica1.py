@@ -182,29 +182,38 @@ class Cola:
 
 		
 				
-
+class PilaNodo:
+	def __init__(self, item, link):
+		self.item=item
+		self.next=link
 class Pila:
 	
 
 	def __init__(self):
 
-		self.items=[]
-		self.top=0
+		self.top= None
+		self.tam=0
 	
 
 	def esPilaVacia(self):
-		return self.items == []
+		return self.top ==None
 	def apilar(self,dato):
-		self.items.append(dato)
-		self.top+=1
+		nodo = PilaNodo(dato,self.top)
+		self.top= nodo
+		self.tam+=1
 	def desapilar(self):
-		
-			self.top-=1
-			return self.items.pop()
-			
+		if not self.esPilaVacia():
+			nodo= self.top
+			self.top=self.top.next
+			self.tam-=1
+			return nodo.item
 	def PilaSize(self):
 		
-		return self.top
+		return self.tam		
+
+			
+			
+	
 
 class NodoEnlazado:
 	def __init__(self,ip,carnet,inorden,postorden,resultado):
@@ -252,17 +261,9 @@ class ListaDoblementeEnlazada:
 class Conversion:
 	def __init__(self):
 
-		
-		
-		
-		
 		self.pila=[]
 		self.EP=[]
 		self.tope=0
-
-	
-
-	
 
 	def push(self,dato):
 		self.tope+=1
@@ -468,6 +469,7 @@ def h7():
 	inorden= request.form['inorden']
 	postorden= request.form['postorden']
 	resultado= request.form['resultado']
+
 	nodo= NodoEnlazado(ip,carnet,inorden,postorden,resultado)
 	
 	listaenlazada.InsertarPrimero(nodo)
@@ -514,12 +516,14 @@ def h13():
 	
 	return lista.getIp()		
 
-
-
+		
 @app.route('/hola') 
 def he():
 	return "hola Mundo"
 
+
 if __name__ == "__main__":
-  app.run(debug=True, host='192.168.1.5')					
+  
+  app.run(debug=True, host='192.168.1.5')
+  				
 

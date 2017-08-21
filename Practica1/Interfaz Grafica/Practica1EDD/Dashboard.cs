@@ -19,6 +19,7 @@ namespace Practica1EDD
 
     public partial class Dashboard : Form
     {
+         
         private DataTable dt;
         private int num = 0;
         public String direccion = "";
@@ -51,6 +52,7 @@ namespace Practica1EDD
 
                 dynamic array = JsonConvert.DeserializeObject(json);
                 label1.Text = "Este Nodo: " + array.nodos.local + " - 201212644";
+                 
                 string resultado = "";
                 int i = 0;
                 var ip = array.nodos.nodo[0].ip;
